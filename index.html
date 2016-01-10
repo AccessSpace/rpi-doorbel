@@ -1,0 +1,63 @@
+<html>
+<head>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	if (!("Notification" in window)) {
+		alert("No Notifications so keep this window open");
+	}
+	// Let's check whether notification permissions have already been granted
+	else if (Notification.permission === "granted") {
+		// If it's okay let's ignore it
+	}
+	// Otherwise, we need to ask the user for permission
+	else if (Notification.permission !== 'denied') {
+		Notification.requestPermission(function (permission) {
+			//Don't need to say anything just now
+		});
+	}
+	
+	function notify(message) {
+		// Let's check if the browser supports notifications
+		if (!("Notification" in window)) {
+			alert(message);
+		}
+
+		// Let's check whether notification permissions have already been granted
+		else if (Notification.permission === "granted") {
+			// If it's okay let's create a notification
+			var notification = new Notification(message);
+		}
+
+		// Otherwise, we need to ask the user for permission
+		else if (Notification.permission !== 'denied') {
+			Notification.requestPermission(function (permission) {
+				// If the user accepts, let's create a notification
+				if (permission === "granted") {
+					var notification = new Notification(message);
+				}
+			});
+		}
+
+		// Finally, if the user has denied notifications and you 
+		// want to be respectful there is no need to bother them any more.
+	}
+
+
+	var socket = io('/');
+	socket.on('hookedup', function (data) {
+		console.log('hookedup',data);
+		socket.emit('clientonline', { my: 'data' });
+	});
+  
+	socket.on('doorbell', function (data) {
+		console.log('doorbell', data);
+		notify(data.button+ " pressed");
+	});
+  
+</script>
+</head>
+<body>
+	<h1>Access Space Door Bell</h1>
+	<p>This page will pop a notification when one of the door bells is pressed</p>
+</body>
+</html>

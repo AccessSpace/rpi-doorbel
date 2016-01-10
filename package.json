@@ -1,0 +1,26 @@
+{
+  "name": "rpi-doorbell",
+  "version": "0.0.1",
+  "description": "Door bell",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AccessSpace/rpi-doorbell.git"
+  },
+  "author": "Martyn Eggleton",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/AccessSpace/rpi-doorbell/issues"
+  },
+  "homepage": "https://github.com/AccessSpace/rpi-doorbell#readme",
+  "dependencies": {
+    "gmail-sender": "^0.1.2",
+    "node-aplay": "^1.0.3",
+    "node-gammu-json": "0.0.2",
+    "onoff": "^1.0.3",
+    "socket.io": "^1.4.3"
+  }
+}
