@@ -23,8 +23,6 @@ var aPresses = [];
 Gmailer.options({
 	smtp: {
 		service: "Gmail",
-		user: "martyn.eggleton@gmail.com",
-		pass: "iugpqnqfclptnfdq"
 	}
 });
 */
