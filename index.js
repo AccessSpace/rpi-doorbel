@@ -1,7 +1,7 @@
 var app = require('http').createServer(handler)
 var io = require('socket.io')(app);
 var fs = require('fs');
-//var Gmailer = require("gmail-sender");
+var Gmailer = require("gmail-sender");
 var Sound = require('node-aplay');
 var BellSound = new Sound("./audio/sound1.wav");
 var OnlineSound = new Sound("./audio/alert.wav");
@@ -19,13 +19,15 @@ var iRepeatTimeout = 60 * 1000;
 var iDebounceTime = 2000;
 var aPresses = [];
 
-/*//TODO : Move these options into a config file
+//TODO : Move these options into a config file
 Gmailer.options({
 	smtp: {
 		service: "Gmail",
+		user: "you@gmail.com",
+		pass: "app password"
 	}
 });
-*/
+
 
 //These are the PiBrela Pins
 var Gpio = require('onoff').Gpio,
@@ -106,7 +108,7 @@ var onPress = function(err, value, buttonid) {
 	if(aPresses.length >= iRepeatTrigger) {
 		var sSubject = "Access Space Doorbell - "+buttonid+" Activated";
 		console.log("Sending ", sSubject); 
-		/*Gmailer.send({
+		Gmailer.send({
 			subject: sSubject,
 			template: "./doorbell-email.html",
 			from: "'Gmail Sender'",
@@ -125,7 +127,7 @@ var onPress = function(err, value, buttonid) {
 				smslist: "",
 			}
 		});
-		*/
+		
 		aPresses = [];
 	}
 } 
